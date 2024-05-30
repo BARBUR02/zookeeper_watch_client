@@ -5,7 +5,11 @@ tasks:
     desc: Starts 3 zookeper servers in replicated mode, orchestrated my docker-compose 
     cmds:
       - docker compose up
+  start_server_in_replicated_mode:
+    desc: Starts dedicated zookeper server in replicated mode, server name is provided via SERVER 
+    cmds:
+      - docker compose run {{.SERVER}}
   command_line_client:
-    desc: Connects a client to zookeper servers running in replicated mode 
+    desc: Connects a client to zookeper servers running in replicated mode. (Provide SERVER variable in order to connect to specific zookeper server instance)
     cmds:
       - docker run -it --rm --network zookeeper_network zookeeper zkCli.sh -server {{.SERVER}}:2181
