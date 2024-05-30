@@ -1,0 +1,11 @@
+version: '3'
+
+tasks:
+  start_servers_in_replicated_mode:
+    desc: Starts 3 zookeper servers in replicated mode, orchestrated my docker-compose 
+    cmds:
+      - docker compose up
+  command_line_client:
+    desc: Connects a client to zookeper servers running in replicated mode 
+    cmds:
+      - docker run -it --rm --network zookeeper_network zookeeper zkCli.sh -server {{.SERVER}}:2181
