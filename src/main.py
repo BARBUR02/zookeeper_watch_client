@@ -1,26 +1,16 @@
 from tree_builder.tree_builder import TreeBuilder
 from zookeper_watcher.zookeper_watcher import ZookeeperWatcher
+from utils import run_repl, parse_arguments
 
 
 def main() -> None:
-    zkw = ZookeeperWatcher(
-        "/a", "/Applications/Whiteboard.app/Contents/MacOS/Whiteboard"
-    )
+    node_name, application_path = parse_arguments()
+    zkw = ZookeeperWatcher(node_name, application_path)
     tree_builder = TreeBuilder(zkw)
     zkw.start()
-    while True:
-        try:
-            mess = input()
-            if mess == "tree":
-                tree_builder.display_tree()
-            elif mess == "quit":
-                break
-            elif mess == "":
-                continue
-            else:
-                print(f"[INFO]: Incorrect command, use [tree/quit]")
-        except KeyboardInterrupt:
-            break
+
+    print(node_name, application_path)
+    run_repl(tree_builder)
 
     zkw.application_manager.close_app()
     zkw.stop()

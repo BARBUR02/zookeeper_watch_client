@@ -13,3 +13,7 @@ tasks:
     desc: Connects a client to zookeper servers running in replicated mode. (Provide SERVER variable in order to connect to specific zookeper server instance)
     cmds:
       - docker run -it --rm --network zookeeper_network zookeeper zkCli.sh -server {{.SERVER}}:2181
+  run_watcher:
+    desc: Runs python watcher, watching for node_name, and opening --application_path on watched node creation
+    cmds:
+      - python src/main.py --node_name /a --application_path /Applications/WhiteBoard.app/Contents/MacOS/WhiteBoard
